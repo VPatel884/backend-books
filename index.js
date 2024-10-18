@@ -1,11 +1,20 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
+
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
 const { initializeDatabase } = require("./db/db.connect");
 const Book = require("./model/book.model");
 initializeDatabase();
 
 app.use(express.json());
+app.use(cors(corsOptions));
 
 createBook = async (newBook) => {
   try {
